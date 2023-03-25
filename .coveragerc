@@ -1,3 +1,3 @@
 [run]
-source = bluelog
+source = flaskblog
 branch = true

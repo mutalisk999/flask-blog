@@ -9,9 +9,9 @@ import unittest
 
 from flask import url_for
 
-from bluelog import create_app
-from bluelog.extensions import db
-from bluelog.models import Admin
+from flaskblog import create_app
+from flaskblog.extensions import db
+from flaskblog.models import Admin
 
 
 class BaseTestCase(unittest.TestCase):

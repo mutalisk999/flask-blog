@@ -28,7 +28,7 @@ migrate = Migrate()
 
 @login_manager.user_loader
 def load_user(user_id):
-    from bluelog.models import Admin
+    from flaskblog.models import Admin
     user = Admin.query.get(int(user_id))
     return user
 

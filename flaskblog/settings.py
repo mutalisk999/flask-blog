@@ -34,18 +34,18 @@ class BaseConfig(object):
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = ('Bluelog Admin', MAIL_USERNAME)
+    MAIL_DEFAULT_SENDER = ('FlaskBlog Admin', MAIL_USERNAME)
 
-    BLUELOG_EMAIL = os.getenv('BLUELOG_EMAIL')
-    BLUELOG_POST_PER_PAGE = 10
-    BLUELOG_MANAGE_POST_PER_PAGE = 15
-    BLUELOG_COMMENT_PER_PAGE = 15
+    FLASK_BLOG_EMAIL = os.getenv('FLASK_BLOG_EMAIL')
+    FLASK_BLOG_POST_PER_PAGE = 10
+    FLASK_BLOG_MANAGE_POST_PER_PAGE = 15
+    FLASK_BLOG_COMMENT_PER_PAGE = 15
     # ('theme name', 'display name')
-    BLUELOG_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
-    BLUELOG_SLOW_QUERY_THRESHOLD = 1
+    FLASK_BLOG_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
+    FLASK_BLOG_SLOW_QUERY_THRESHOLD = 1
 
-    BLUELOG_UPLOAD_PATH = os.path.join(basedir, 'uploads')
-    BLUELOG_ALLOWED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
+    FLASK_BLOG_UPLOAD_PATH = os.path.join(basedir, 'uploads')
+    FLASK_BLOG_ALLOWED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 
 class DevelopmentConfig(BaseConfig):

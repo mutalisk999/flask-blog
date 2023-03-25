@@ -24,7 +24,7 @@ $ pipenv install --dev
 $ pipenv shell
 ```
 
-init db:
+init database:
 ```
 $ flask init
 
@@ -33,12 +33,15 @@ Password: <admin password>
 Repeat for confirmation: <admin password again>
 ```
 
-generate fake data:
+generate fake data: 
+
+with **username** `admin` and **password** `helloflask`
 ```
 $ flask forge
 ```
 
-rum
+
+run
 ```
 $ flask run
 

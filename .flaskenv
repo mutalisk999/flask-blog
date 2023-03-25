@@ -1,2 +1,2 @@
-FLASK_APP=bluelog
+FLASK_APP=flaskblog
 FLASK_ENV=development
