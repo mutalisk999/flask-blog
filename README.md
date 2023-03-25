@@ -1,19 +1,14 @@
-# Bluelog
+# flask-blog
 
-*A blue blog.*
+This project is originated from [Bluelog](https://github.com/greyli/bluelog.git) developed by [GreyLi](http://greyli.com).
 
-> Example application for *[Python Web Development with Flask](https://helloflask.com/en/book/1)* (《[Flask Web 开发实战](https://helloflask.com/book/1)》).
-
-Demo: http://bluelog.helloflask.com
-
-![Screenshot](https://helloflask.com/screenshots/bluelog.png)
 
 ## Installation
 
 clone:
 ```
-$ git clone https://github.com/greyli/bluelog.git
-$ cd bluelog
+$ git clone https://github.com/mutalisk999/flask-blog.git
+$ cd flask-blog
 ```
 create & activate virtual env then install dependency:
 
@@ -28,17 +23,28 @@ or with Pipenv:
 $ pipenv install --dev
 $ pipenv shell
 ```
-generate fake data then run:
+
+init db:
+```
+$ flask init
+
+Username: <admin name>
+Password: <admin password>
+Repeat for confirmation: <admin password again>
+```
+
+generate fake data:
 ```
 $ flask forge
+```
+
+rum
+```
 $ flask run
+
 * Running on http://127.0.0.1:5000/
 ```
 
-Test account:
-
-* username: `admin`
-* password: `helloflask`
 
 ## License
 
