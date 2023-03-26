@@ -45,6 +45,7 @@ class BaseConfig(object):
     FLASK_BLOG_SLOW_QUERY_THRESHOLD = 1
 
     FLASK_BLOG_UPLOAD_PATH = os.path.join(basedir, 'uploads')
+    FLASK_BLOG_ALLOWED_IMAGE_SIZE = 2 * 1024 * 1024
     FLASK_BLOG_ALLOWED_IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 

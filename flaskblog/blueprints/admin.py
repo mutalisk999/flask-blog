@@ -14,7 +14,7 @@ from flask_ckeditor import upload_success, upload_fail
 from flaskblog.extensions import db
 from flaskblog.forms import SettingForm, PostForm, CategoryForm, LinkForm
 from flaskblog.models import Post, Category, Comment, Link
-from flaskblog.utils import redirect_back, allowed_file
+from flaskblog.utils import redirect_back, allowed_file, calc_md5, allowed_file_size
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -250,10 +250,19 @@ def get_image(filename):
 
 
 @admin_bp.route('/upload', methods=['POST'])
+@login_required
 def upload_image():
     f = request.files.get('upload')
-    if not allowed_file(f.filename):
+    data = f.read()
+    if not allowed_file_size(data):
+        return upload_fail('Image size!')
+    if not allowed_file(f.filename, data):
         return upload_fail('Image only!')
-    f.save(os.path.join(current_app.config['FLASK_BLOG_UPLOAD_PATH'], f.filename))
-    url = url_for('.get_image', filename=f.filename)
-    return upload_success(url, f.filename)
+    filename = '.'.join([calc_md5(data), f.filename.rsplit('.', 1)[1].lower()])
+    upload_path = os.path.join(current_app.config['FLASK_BLOG_UPLOAD_PATH'], filename)
+    if not os.path.exists(upload_path):
+        # in case of Race-Condition, use "x"
+        with open(upload_path, "xb") as w:
+            w.write(data)
+    url = url_for('.get_image', filename=filename)
+    return upload_success(url, filename)

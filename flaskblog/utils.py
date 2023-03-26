@@ -5,6 +5,8 @@
     :copyright: © 2018 Grey Li <withlihui@gmail.com>
     :license: MIT, see LICENSE for more details.
 """
+import hashlib
+
 try:
     from urlparse import urlparse, urljoin
 except ImportError:
@@ -28,6 +30,39 @@ def redirect_back(default='blog.index', **kwargs):
     return redirect(url_for(default, **kwargs))
 
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in current_app.config['FLASK_BLOG_ALLOWED_IMAGE_EXTENSIONS']
+def calc_md5(data):
+    return hashlib.md5(data).hexdigest()
+
+
+def is_image_jpg_or_jpeg(data):
+    return len(data) >= 11 \
+           and data[:4] == b'\xff\xd8\xff\xe0' \
+           and data[6:11] == b'\x4a\x46\x49\x46\x00'
+
+
+def is_image_png(data):
+    return len(data) >= 6 \
+           and data[0:6] == b'\x89\x50\x4e\x47\x0d\x0a'
+
+
+def is_image_gif(data):
+    return len(data) >= 6 and data[0:6] == b'\x47\x49\x46\x38\x39\x61'
+
+
+def allowed_file_size(data):
+    return len(data) <= current_app.config['FLASK_BLOG_ALLOWED_IMAGE_SIZE']
+
+
+def allowed_file(filename, data):
+    if '.' not in filename:
+        return False
+    file_ext = filename.rsplit('.', 1)[1].lower()
+    if file_ext not in current_app.config['FLASK_BLOG_ALLOWED_IMAGE_EXTENSIONS']:
+        return False
+    if file_ext in ('jpg', 'jpeg') and not is_image_jpg_or_jpeg(data):
+        return False
+    if file_ext == 'png' and not is_image_png(data):
+        return False
+    if file_ext == 'gif' and not is_image_gif(data):
+        return False
+    return True
