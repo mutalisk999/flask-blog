@@ -7,8 +7,4 @@ if os.path.exists(dotenv_path):
 
 from flaskblog import create_app  # noqa
 
-config_name = os.getenv('FLASK_CONFIG', 'development')
-if config_name not in ('development', 'testing', 'production'):
-    config_name = 'development'
-
-app = create_app(config_name)
+app = create_app('production')
