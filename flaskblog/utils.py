@@ -53,10 +53,7 @@ def allowed_file_size(data):
     return len(data) <= current_app.config['FLASK_BLOG_ALLOWED_IMAGE_SIZE']
 
 
-def allowed_file(filename, data):
-    if '.' not in filename:
-        return False
-    file_ext = filename.rsplit('.', 1)[1].lower()
+def allowed_file(file_ext, data):
     if file_ext not in current_app.config['FLASK_BLOG_ALLOWED_IMAGE_EXTENSIONS']:
         return False
     if file_ext in ('jpg', 'jpeg') and not is_image_jpg_or_jpeg(data):

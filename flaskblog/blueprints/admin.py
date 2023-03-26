@@ -254,11 +254,14 @@ def get_image(filename):
 def upload_image():
     f = request.files.get('upload')
     data = f.read()
+    if '.' not in f.filename:
+        return upload_fail('Image name!')
+    file_ext = f.filename.rsplit('.', 1)[1].lower()
     if not allowed_file_size(data):
         return upload_fail('Image size!')
-    if not allowed_file(f.filename, data):
+    if not allowed_file(file_ext, data):
         return upload_fail('Image only!')
-    filename = '.'.join([calc_md5(data), f.filename.rsplit('.', 1)[1].lower()])
+    filename = '.'.join([calc_md5(data), file_ext])
     upload_path = os.path.join(current_app.config['FLASK_BLOG_UPLOAD_PATH'], filename)
     if not os.path.exists(upload_path):
         # in case of Race-Condition, use "x"
