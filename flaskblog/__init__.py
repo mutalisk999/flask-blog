@@ -18,7 +18,8 @@ from flask_wtf.csrf import CSRFError
 from flaskblog.blueprints.admin import admin_bp
 from flaskblog.blueprints.auth import auth_bp
 from flaskblog.blueprints.blog import blog_bp
-from flaskblog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
+from flaskblog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, migrate
+# from flaskblog.extensions import toolbar
 from flaskblog.models import Admin, Post, Category, Comment, Link
 from flaskblog.settings import config
 
@@ -45,7 +46,6 @@ def create_app(config_name=None):
 
 def register_logging(app):
     class RequestFormatter(logging.Formatter):
-
         def format(self, record):
             record.url = request.url
             record.remote_addr = request.remote_addr
@@ -85,7 +85,7 @@ def register_extensions(app):
     ckeditor.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
-    toolbar.init_app(app)
+    # toolbar.init_app(app)
     migrate.init_app(app, db)
 
 
